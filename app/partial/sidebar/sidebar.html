@@ -1,0 +1,20 @@
+
+<div
+    class="room-container"
+    ng-click="joinClick(room)"
+    ng-repeat="room in rooms"
+    ng-class="{'room-container-active':selectedRoom._id === room._id}"
+>
+    {{room.name}}
+    <div class="btn btn-xs btn-danger pull-right" ng-click="deleteClick(room._id)">Delete</div>
+</div>
+
+<div class="sidebar-bottom">
+    <div
+        ng-click="saveClick()"
+        ng-class="createRoom?'btn-success':'btn-primary'"
+        class="btn btn-xs btn-primary">{{createRoom?'Save':'Create new'}}</div>
+    <div class="btn btn-xs btn-warning" ng-show="createRoom" ng-click="createRoom = false">Cancel</div>
+    <hr/>
+    <input ng-if="createRoom" class="room-input" type="text" ng-model="room.name">
+</div>

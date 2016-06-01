@@ -1,0 +1,18 @@
+<div class="main-bottom">
+
+    <div class="messages-scroll-container">
+        <div class="messages-container">
+            <div class="message-container" ng-repeat="message in messages">
+                {{message.content}}
+                <p class="message-date">{{message.dateCreated | date:'dd/MM/yyyy, hh:mm:ss'}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="message-input-container">
+        <input ng-model="message.content" type="text" ng-keyup="onKeyUp($event)" class="message-input">
+    </div>
+
+
+</div>
