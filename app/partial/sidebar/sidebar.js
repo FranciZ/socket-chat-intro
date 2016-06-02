@@ -2,6 +2,7 @@
 
 angular.module('chatApp').controller('SidebarCtrl',function(
     $scope,
+    $rootScope,
     roomService,
     socketService
 ){
@@ -38,11 +39,13 @@ angular.module('chatApp').controller('SidebarCtrl',function(
         roomService.getRoomMessages(room._id)
             .then(function(res){
 
-
+                $rootScope.$broadcast('room-change');
 
             });
 
     };
+
+
 
     $scope.deleteClick = function(roomId){
 

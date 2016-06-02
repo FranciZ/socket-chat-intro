@@ -8,13 +8,36 @@ angular.module('chatApp').controller('MainCtrl',function(
     $scope.messages = socketService.messages;
     $scope.message = {};
 
-    $timeout(function(){
+    $scope.$watch('messages', function(newValue, oldValue){
 
-        $('.messages-scroll-container')[0].scrollTop = $('.messages-scroll-container')[0].scrollHeight;
+        $timeout(function(){
 
-    }, 100);
+            //mUpdateScroll();
 
-    
+        },0);
+
+    }, true);
+
+    $scope.$on('room-change',function(){
+
+        $timeout(function(){
+
+            mUpdateScroll();
+
+        },0);
+
+    });
+
+    var mUpdateScroll;
+    var mGetCurrentScroll;
+
+    $scope.onInit = function(updateScroll, getCurrentScroll){
+
+        mUpdateScroll = updateScroll;
+        mGetCurrentScroll = getCurrentScroll;
+
+    };
+
     $scope.onKeyUp = function(event){
 
         if(event.keyCode === 13){
@@ -33,11 +56,25 @@ angular.module('chatApp').controller('MainCtrl',function(
 
     };
 
+    $scope.onScroll = function(){
+
+    };
+
     socketService.socket.on('message', function(message){
+
+        var isScrollBottom = mGetCurrentScroll();
+
+        socketService.socket.emit('message-seen', message);
 
         socketService.messages.push(message);
         $scope.messages = socketService.messages;
         $scope.$apply();
+
+        if(isScrollBottom){
+
+            mUpdateScroll();
+
+        }
 
     });
 

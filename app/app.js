@@ -2,7 +2,8 @@ angular.module('chatApp', [
     'ui.bootstrap',
     'ui.router',
     'ngAnimate',
-    'btford.socket-io'
+    'btford.socket-io',
+    'LocalForageModule'
 ]);
 
 angular.module('chatApp').config(function($stateProvider, $urlRouterProvider) {
@@ -23,6 +24,11 @@ angular.module('chatApp').config(function($stateProvider, $urlRouterProvider) {
             isLoggedIn:function(authService){
 
                 return authService.isLoggedIn();
+
+            },
+            connectSocket:function(isLoggedIn, authService, socketService){
+
+                socketService.connect(authService.token);
 
             }
         }

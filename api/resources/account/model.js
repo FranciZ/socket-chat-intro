@@ -9,9 +9,7 @@ const schema = new mongoose.Schema({
     tokens      : [
         {
             value   : String,
-            expires : { type:Date, default:function(){
-                return new Date() + 1000*60*60*24*7
-            }},
+            expires : { type:Date, default:function(){return +new Date() + 7*24*60*60*1000}},
             dateCreated : { type:Date, default:Date.now}
         }
     ]

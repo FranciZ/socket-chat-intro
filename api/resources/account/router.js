@@ -10,7 +10,10 @@ function isAuthenticated(req, res, next){
 
     const Account = mongoose.model('Account');
 
-    Account.findOne({'tokens.value':token}, (err, doc)=>{
+    console.log(req.method);
+    console.log(token);
+
+    Account.findOne({'tokens.value':token, 'tokens.expires':{$gt:Date.now()}}, (err, doc)=>{
 
         if(err){
             next(err);
@@ -32,6 +35,34 @@ exports.init = (app)=>{
     app.get('/account/isLoggedIn', isAuthenticated, (req, res)=>{
 
         res.send(req.account);
+
+    });
+
+    app.post('/logout', isAuthenticated, (req, res)=>{
+
+        const accountDoc    = req.account;
+        const token         = req.headers.authorization;
+        const Account = mongoose.model('Account');
+
+        console.log('Logout');
+
+        const q = Account.findByIdAndUpdate(accountDoc._id,
+            {
+                $pull:{
+                    tokens:{
+                        value:token
+                    }
+                }
+            });
+
+        q.exec()
+            .then(()=>{
+
+                res.sendStatus(200);
+
+            });
+
+
 
     });
 

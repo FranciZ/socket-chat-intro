@@ -26,25 +26,57 @@ exports.init = (io)=> {
 
     io.on('connection', function (socket) {
 
+        socket.on('message-seen', function(data){
+
+            const Notification = mongoose.model('Notification');
+
+            const q = Notification.findOneAndUpdate({message:data._id, room:data.room}, { seen:true });
+
+            q.exec()
+                .then((doc)=>{
+
+
+
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+
+        });
+
         socket.on('message', function (data) {
 
             const Message = mongoose.model('Message');
+            const Notification = mongoose.model('Notification');
 
             const newMessage = new Message({
                 room: data.room,
                 content: socket.account.username + ' said: ' +data.content,
-                type: 'message'
+                type: 'message',
+                account: socket.account._id
             });
 
-            newMessage.save((err)=> {
+            newMessage.save()
+                .then((err)=>{
 
-                if (err) {
-                    console.log(err);
-                }
+                    const newNotification = new Notification({
+                        room:data.room,
+                        message:newMessage._id,
+                        account:socket.account._id
+                    });
 
-                io.sockets.in(data.room).emit('message', newMessage);
+                    return newNotification.save();
 
-            });
+                })
+                .then((err)=>{
+
+                    if (err) {
+                        console.log(err);
+                    }
+
+                    io.sockets.in(data.room).emit('message', newMessage);
+
+                });
 
         });
 

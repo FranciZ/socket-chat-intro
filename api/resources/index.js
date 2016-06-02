@@ -11,4 +11,7 @@ exports.init = (app)=>{
     require('./account/model');
     require('./account/router').init(app);
 
+    require('./notification/model');
+    require('./notification/router').init(app);
+
 };

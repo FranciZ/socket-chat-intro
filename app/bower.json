@@ -22,6 +22,8 @@
     "less.js": "~2.6",
     "font-awesome": "~4.5",
     "socket.io-client": "^1.4.6",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "localforage": "^1.4.2",
+    "angular-localforage": "angular-localForage#^1.2.5"
   }
 }
