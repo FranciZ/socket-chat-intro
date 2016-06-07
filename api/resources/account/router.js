@@ -32,13 +32,13 @@ function isAuthenticated(req, res, next){
 
 exports.init = (app)=>{
 
-    app.get('/account/isLoggedIn', isAuthenticated, (req, res)=>{
+    app.get('/api/account/isLoggedIn', isAuthenticated, (req, res)=>{
 
         res.send(req.account);
 
     });
 
-    app.post('/logout', isAuthenticated, (req, res)=>{
+    app.post('/api/logout', isAuthenticated, (req, res)=>{
 
         const accountDoc    = req.account;
         const token         = req.headers.authorization;
@@ -69,7 +69,7 @@ exports.init = (app)=>{
     /**
      * Login
      */
-    app.post('/login', (req, res) => {
+    app.post('/api/login', (req, res) => {
 
         req.checkBody('email', 'Email value is not a valid email address').isEmail();
         req.checkBody('password', 'Password required').notEmpty();
@@ -131,7 +131,7 @@ exports.init = (app)=>{
     /**
      * Registration
      */
-    app.post('/account', (req, res)=>{
+    app.post('/api/account', (req, res)=>{
 
         req.checkBody('email', 'Email value is not a valid email address').isEmail();
         req.checkBody('username', 'Username only allows numbers and letters').isAlphanumeric();

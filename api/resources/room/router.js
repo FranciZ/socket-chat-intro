@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 exports.init = (app)=>{
 
-    app.get('/rooms', (req, res) => {
+    app.get('/api/rooms', (req, res) => {
 
         const Room = mongoose.model('Room');
 
@@ -18,7 +18,7 @@ exports.init = (app)=>{
 
     });
 
-    app.post('/room', (req, res)=>{
+    app.post('/api/room', (req, res)=>{
 
         const Room = mongoose.model('Room');
         const data = req.body;
@@ -47,7 +47,7 @@ exports.init = (app)=>{
 
     });
 
-    app.delete('/room/:roomId', (req, res)=>{
+    app.delete('/api/room/:roomId', (req, res)=>{
 
         const Room = mongoose.model('Room');
         const Message = mongoose.model('Message');

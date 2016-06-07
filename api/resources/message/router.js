@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 exports.init = (app)=>{
 
-    app.get('/room/:roomId/messages', (req, res)=>{
+    app.get('/api/room/:roomId/messages', (req, res)=>{
 
         const roomId = req.params.roomId;
         const Message = mongoose.model('Message');
@@ -21,7 +21,7 @@ exports.init = (app)=>{
 
     });
 
-    app.delete('/message/:messageId', (req, res)=>{
+    app.delete('/api/message/:messageId', (req, res)=>{
 
         const Message = mongoose.model('Message');
         const messageId = req.params.messageId;
