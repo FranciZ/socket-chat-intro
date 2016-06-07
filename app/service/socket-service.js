@@ -6,7 +6,7 @@ angular.module('chatApp').factory('socketService',function() {
         messages:[],
         connect:function(token){
 
-            var socketIo = io.connect('http://localhost:3033?token='+token);
+            var socketIo = io.connect('http://franci.sae.proxima.si/api?token='+token);
 
             socketService.socket = socketIo;
 

@@ -12,7 +12,7 @@ angular.module('chatApp').factory('authService',function(
         account:null,
         register:function(userData){
 
-            var promise = $http.post('http://localhost:3033/account', userData);
+            var promise = $http.post('http://franci.sae.proxima.si/api/account', userData);
 
             promise.then(function(res){
 
@@ -34,7 +34,7 @@ angular.module('chatApp').factory('authService',function(
 
         login:function(userData){
 
-            return $http.post('http://localhost:3033/login', userData)
+            return $http.post('http://franci.sae.proxima.si/api/login', userData)
                 .then(function(res){
 
                 console.log('Logged in: ',res);
@@ -57,7 +57,7 @@ angular.module('chatApp').factory('authService',function(
 
         logout:function(){
 
-            var promise = $http.post('http://localhost:3033/logout', {}, {
+            var promise = $http.post('http://franci.sae.proxima.si/api/logout', {}, {
                 headers:{
                     authorization:authService.token
                 }
@@ -83,7 +83,7 @@ angular.module('chatApp').factory('authService',function(
             return authService.getToken()
                 .then(function(){
 
-                    var promise = $http.get('http://localhost:3033/account/isLoggedIn', {
+                    var promise = $http.get('http://franci.sae.proxima.si/api/account/isLoggedIn', {
                         headers:{
                             authorization:authService.token
                         }
