@@ -1,10 +1,14 @@
 angular.module('chatApp', [
-    'ui.bootstrap',
-    'ui.router',
-    'ngAnimate',
-    'btford.socket-io',
-    'LocalForageModule'
-]);
+        'ui.bootstrap',
+        'ui.router',
+        'ngAnimate',
+        'btford.socket-io',
+        'LocalForageModule'
+    ])
+    .constant('NET',{
+        API_URL:'http://franci.sae.proxima.si/api',
+        WS_URL:'http://franci.sae.proxima.si'
+    });
 
 angular.module('chatApp').config(function($stateProvider, $urlRouterProvider) {
 

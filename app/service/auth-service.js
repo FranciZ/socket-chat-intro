@@ -3,7 +3,8 @@ angular.module('chatApp').factory('authService',function(
     $state,
     $rootScope,
     socketService,
-    $localForage
+    $localForage,
+    NET
 ) {
 
     var authService = {
@@ -12,7 +13,7 @@ angular.module('chatApp').factory('authService',function(
         account:null,
         register:function(userData){
 
-            var promise = $http.post('http://franci.sae.proxima.si/api/account', userData);
+            var promise = $http.post(NET.API_URL+'/account', userData);
 
             promise.then(function(res){
 
@@ -34,7 +35,7 @@ angular.module('chatApp').factory('authService',function(
 
         login:function(userData){
 
-            return $http.post('http://franci.sae.proxima.si/api/login', userData)
+            return $http.post(NET.API_URL+'/login', userData)
                 .then(function(res){
 
                 console.log('Logged in: ',res);
@@ -57,7 +58,7 @@ angular.module('chatApp').factory('authService',function(
 
         logout:function(){
 
-            var promise = $http.post('http://franci.sae.proxima.si/api/logout', {}, {
+            var promise = $http.post(NET.API_URL+'/logout', {}, {
                 headers:{
                     authorization:authService.token
                 }
@@ -83,7 +84,7 @@ angular.module('chatApp').factory('authService',function(
             return authService.getToken()
                 .then(function(){
 
-                    var promise = $http.get('http://franci.sae.proxima.si/api/account/isLoggedIn', {
+                    var promise = $http.get(NET.API_URL+'/account/isLoggedIn', {
                         headers:{
                             authorization:authService.token
                         }

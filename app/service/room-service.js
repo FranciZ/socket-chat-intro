@@ -1,6 +1,7 @@
 angular.module('chatApp').factory('roomService',function(
     $http,
-    socketService
+    socketService,
+    NET
 ) {
 
     var roomService = {
@@ -12,7 +13,7 @@ angular.module('chatApp').factory('roomService',function(
 
             console.log('Post data: ',data);
 
-            var promise = $http.post('http://franci.sae.proxima.si/api/room', data);
+            var promise = $http.post(NET.API_URL+'/room', data);
 
             promise.then(function(res){
 
@@ -25,7 +26,7 @@ angular.module('chatApp').factory('roomService',function(
         },
         getAll:function(){
 
-            var promise = $http.get('http://franci.sae.proxima.si/api/rooms');
+            var promise = $http.get(NET.API_URL+'/rooms');
 
             promise.then(function(res){
 
@@ -38,7 +39,7 @@ angular.module('chatApp').factory('roomService',function(
         },
         getRoomMessages: function(roomId){
 
-            var promise = $http.get('http://franci.sae.proxima.si/api/room/'+roomId+'/messages');
+            var promise = $http.get(NET.API_URL+'/room/'+roomId+'/messages');
 
             promise.then(function(res){
 
@@ -52,7 +53,7 @@ angular.module('chatApp').factory('roomService',function(
         },
         removeRoom: function(roomId){
 
-            var promise = $http.delete('http://franci.sae.proxima.si/api/room/'+roomId);
+            var promise = $http.delete(NET.API_URL+'/api/room/'+roomId);
 
             promise.then(function(res){
 
