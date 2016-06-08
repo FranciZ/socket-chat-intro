@@ -3,12 +3,18 @@ angular.module('chatApp', [
         'ui.router',
         'ngAnimate',
         'btford.socket-io',
-        'LocalForageModule'
+        'LocalForageModule',
+        'btford.socket-io'
     ])
     .constant('NET',{
         API_URL:'http://franci.sae.proxima.si/api',
         WS_URL:'http://franci.sae.proxima.si'
     });
+/*.constant('NET',{
+    API_URL:'http://localhost:3033/api',
+    WS_URL:'http://localhost:3033'
+});*/
+
 
 angular.module('chatApp').config(function($stateProvider, $urlRouterProvider) {
 
@@ -30,9 +36,10 @@ angular.module('chatApp').config(function($stateProvider, $urlRouterProvider) {
                 return authService.isLoggedIn();
 
             },
-            connectSocket:function(isLoggedIn, authService, socketService){
+            connectSocket:function(isLoggedIn, authService, socketService, roomService){
 
                 socketService.connect(authService.token);
+                roomService.listen();
 
             }
         }

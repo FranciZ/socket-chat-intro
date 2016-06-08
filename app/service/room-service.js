@@ -9,6 +9,15 @@ angular.module('chatApp').factory('roomService',function(
         model:{
             list:[]
         },
+        listen:function(){
+
+            socketService.socket.on('newRoom', function(room){
+
+                roomService.model.list.push(room);
+
+            });
+
+        },
         create:function(data){
 
             console.log('Post data: ',data);

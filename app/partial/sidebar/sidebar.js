@@ -11,6 +11,12 @@ angular.module('chatApp').controller('SidebarCtrl',function(
     $scope.room = {};
     $scope.rooms = roomService.model.list;
 
+    socketService.socket.on('newRoom', function(room){
+
+        $scope.$apply();
+
+    });
+
     $scope.saveClick = function(){
 
         $scope.createRoom = !$scope.createRoom;
