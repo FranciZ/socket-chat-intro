@@ -10,7 +10,8 @@ angular.module('chatApp').factory('socketService',function(
         messages:[],
         connect:function(token){
 
-            var socketIo = io.connect(NET.WS_URL+'?token='+token,{path:'/api/socket.io'});
+
+            var socketIo = io.connect('HELLO'+'?token='+token,{path:'/api/socket.io'});
 
             socketService.angularSocket = socketFactory({ioSocket: socketIo});
 
