@@ -26,7 +26,7 @@ angular.module('chatApp').factory('roomService',function(
 
             promise.then(function(res){
 
-                roomService.model.list.push(res.data);
+                //roomService.model.list.push(res.data);
 
             });
 
