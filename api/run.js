@@ -15,7 +15,12 @@ const expressValidator = require('express-validator');
 
 const _ = require('lodash');
 
-app.use(cors());
+var corsOptions = {
+    origin: 'http://franci.sae.proxima.si'
+};
+
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(expressValidator());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -23,7 +28,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 db.init()
     .then(()=>{
 
-        resources.init(app);
+        resources.init(app, io);
         socket.init(io);
 
     })

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-exports.init = (app)=>{
+exports.init = (app, io)=>{
 
     app.get('/api/rooms', (req, res) => {
 
@@ -37,6 +37,7 @@ exports.init = (app)=>{
                     if(err){
                         res.status(400).send(err);
                     }else{
+                        io.sockets.emit('newRoom', newRoom);
                         res.send(newRoom);
                     }
 
